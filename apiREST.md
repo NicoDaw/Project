@@ -6,7 +6,9 @@ REST (Representational State Transfer) es un conjunto de normas y convenciones q
 
 ### Estandares y Convenciones
 
-* 
+* URIS
+* Metodos HTTP
+* Datos estandarizados
 
 ---
 
