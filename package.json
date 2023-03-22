@@ -19,5 +19,8 @@
     "url": "https://github.com/NicoDaw/Project/issues"
   },
   "homepage": "https://github.com/NicoDaw/Project#readme",
-  "description": ""
+  "description": "",
+  "devDependencies": {
+    "nodemon": "^2.0.21"
+  }
 }
