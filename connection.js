@@ -1,16 +1,27 @@
-// Importamos la clase Pool del paquete pg
-const { Pool } = require('pg');
+const { Pool } = require('pg')
+require('dotenv').config();
+
 
 // Creamos una instancia de la clase Pool con los parámetros de configuración
 const pool = new Pool({
-  user: 'postgres',  
-  host: 'localhost', 
-  database: 'Northwind', 
-  password: 'badia123',
-  port: 5432,
+    user: process.env.POSTGRES_USER,
+    host: process.env.POSTGRES_HOST,
+    database: process.env.POSTGRES_DB,
+    password: process.env.POSTGRES_PASSWORD,
+    port: process.env.PORT,
 });
 
-// // Exportamos un objeto con una función query que utiliza el pool de conexiones
-// module.exports = {
-//   db: (text, params) => pool.db(text, params),
-// };
+const db = {
+    query: (str) => {
+        pool.connect()
+        console.log('llega');
+        return pool.query(str)
+    },
+    execute: async (str) => {
+        pool.connect()
+        await pool.execute(str)
+    }
+}
+
+
+module.exports = db
