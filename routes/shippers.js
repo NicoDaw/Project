@@ -4,7 +4,7 @@ const db = require('../connection')
 
 router.get('/', async (req, res) => {
   try {
-    let result = await db.query('SELECT * from employees')
+    let result = await db.query('SELECT * from shippers')
     res.json(result.rows)
   } catch (err) {
     console.error(err)

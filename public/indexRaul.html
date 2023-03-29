@@ -14,6 +14,8 @@
     <link rel="stylesheet" href="./plugins/fontawesome-free/css/all.min.css" />
     <!-- Theme style -->
     <link rel="stylesheet" href="./dist/css/adminlte.min.css" />
+    <!-- Css page -->
+    <link rel="stylesheet" href="./css/raul.css" />
   </head>
   <body class="hold-transition sidebar-mini">
     <div class="wrapper">
@@ -113,13 +115,46 @@
                         class="input-group input-group-sm"
                         style="width: 150px"
                       >
-                        <a href="">
+                        <button id="addOrder">
                           <i class="fas fa-plus"></i>
-                        </a>
+                        </button>
                       </div>
                     </div>
                   </div>
                   <!-- /.card-header -->
+                  <div id="popUpFormAddOrder" style="display: none">
+                    <form id="formOrder">
+                      <input type="text" hidden name="order_id" />
+                      <p>customer_id</p>
+                      <select name="customer_id" id="customer_id"></select>
+                      <p>employee_id</p>
+                      <select name="employee_id" id="employee_id"></select>
+                      <p>order_date</p>
+                      <input type="date" name="order_date" />
+                      <p>require_date</p>
+                      <input type="date" name="require_date" />
+                      <p>shipped_date</p>
+                      <input type="date" name="shipped_date" />
+                      <p>ship_via</p>
+                      <select name="ship_via" id="ship_via"></select>
+                      <p>freight</p>
+                      <input type="number" name="freight" />
+                      <p>ship_name</p>
+                      <input type="text" name="ship_name" />
+                      <p>ship_address</p>
+                      <input type="text" name="ship_address" />
+                      <p>ship_city</p>
+                      <input type="text" name="ship_city" />
+                      <p>ship_region</p>
+                      <input type="text" name="ship_region" />
+                      <p>ship_postal_code</p>
+                      <input type="number" name="ship_postal_code" />
+                      <p>ship_country</p>
+                      <input type="text" name="ship_country" />
+                      <button type="submit">Enviar</button>
+                    </form>
+                  </div>
+
                   <div
                     class="card-body table-responsive p-0"
                     style="height: 300px"
@@ -129,101 +164,25 @@
                     >
                       <thead>
                         <tr>
-                          <th>ID</th>
-                          <th>User</th>
-                          <th>Date</th>
-                          <th>Status</th>
-                          <th>Reason</th>
+                          <th>nº</th>
+                          <th>order_id</th>
+                          <th>customer_id</th>
+                          <th>employee_id</th>
+                          <th>order_date</th>
+                          <th>require_date</th>
+                          <th>shipped_date</th>
+                          <th>ship_via</th>
+                          <th>freight</th>
+                          <th>ship_name</th>
+                          <th>ship_address</th>
+                          <th>ship_city</th>
+                          <th>ship_region</th>
+                          <th>ship_postal_code</th>
+                          <th>ship_country</th>
+                          <th>Actions</th>
                         </tr>
                       </thead>
-                      <tbody>
-                        <tr>
-                          <td>183</td>
-                          <td>John Doe</td>
-                          <td>11-7-2014</td>
-                          <td><span class="tag tag-success">Approved</span></td>
-                          <td>
-                            Bacon ipsum dolor sit amet salami venison chicken
-                            flank fatback doner.
-                          </td>
-                          <td>
-                            <a href="">
-                              <i class="fas fa-edit"></i>
-                            </a>
-                            <a href=""><i class="fas fa-trash-alt"></i></a>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>219</td>
-                          <td>Alexander Pierce</td>
-                          <td>11-7-2014</td>
-                          <td><span class="tag tag-warning">Pending</span></td>
-                          <td>
-                            Bacon ipsum dolor sit amet salami venison chicken
-                            flank fatback doner.
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>657</td>
-                          <td>Bob Doe</td>
-                          <td>11-7-2014</td>
-                          <td><span class="tag tag-primary">Approved</span></td>
-                          <td>
-                            Bacon ipsum dolor sit amet salami venison chicken
-                            flank fatback doner.
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>175</td>
-                          <td>Mike Doe</td>
-                          <td>11-7-2014</td>
-                          <td><span class="tag tag-danger">Denied</span></td>
-                          <td>
-                            Bacon ipsum dolor sit amet salami venison chicken
-                            flank fatback doner.
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>134</td>
-                          <td>Jim Doe</td>
-                          <td>11-7-2014</td>
-                          <td><span class="tag tag-success">Approved</span></td>
-                          <td>
-                            Bacon ipsum dolor sit amet salami venison chicken
-                            flank fatback doner.
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>494</td>
-                          <td>Victoria Doe</td>
-                          <td>11-7-2014</td>
-                          <td><span class="tag tag-warning">Pending</span></td>
-                          <td>
-                            Bacon ipsum dolor sit amet salami venison chicken
-                            flank fatback doner.
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>832</td>
-                          <td>Michael Doe</td>
-                          <td>11-7-2014</td>
-                          <td><span class="tag tag-primary">Approved</span></td>
-                          <td>
-                            Bacon ipsum dolor sit amet salami venison chicken
-                            flank fatback doner.
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>982</td>
-                          <td>Rocky Doe</td>
-                          <td>11-7-2014</td>
-                          <td><span class="tag tag-danger">Denied</span></td>
-                          <td>
-                            Bacon ipsum dolor sit amet salami venison chicken
-                            flank fatback doner.
-                          </td>
-                        </tr>
-                      </tbody>
+                      <tbody id="dataContent"></tbody>
                     </table>
                   </div>
                   <!-- /.card-body -->
@@ -249,5 +208,7 @@
     <script src="./dist/js/adminlte.min.js"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="./dist/js/demo.js"></script>
+    <!-- cargar datos table -->
+    <script defer src="./js/raul.js"></script>
   </body>
 </html>
