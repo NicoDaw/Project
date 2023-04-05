@@ -8,7 +8,7 @@ router.get('/', async (req, res) => {
 })
 const idAutoIncremental = async () => {
   let result = await db.query(
-    'SELECT * FROM orders ORDER BY "order_id" desc LIMIT 1'
+    'SELECT order_id FROM orders ORDER BY "order_id" desc LIMIT 1'
   )
   let lastIdOrder = result.rows[0].order_id
   let id = lastIdOrder + 1
