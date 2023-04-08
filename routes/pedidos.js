@@ -3,7 +3,10 @@ const router = express.Router()
 const db = require('../connection')
 
 router.get('/', async (req, res) => {
-  let result = await db.query('SELECT * from orders LIMIT 10')
+  // let result = await db.query('SELECT * from orders LIMIT 10')
+  let result = await db.query(
+    'SELECT * FROM orders ORDER BY "order_id" desc LIMIT 10'
+  )
   res.json(result.rows)
 })
 const idAutoIncremental = async () => {
@@ -63,9 +66,50 @@ router.post('/', async (req, res) => {
   }
 })
 
-router.put('/', async (req, res) => {
+// selecionar un pedido en especifico
+router.get('/:id', async (req, res) => {
+  // console.log('id',req.params.id);
   let result = await db.query(
-    'UPDATE INTO pedidos(order_id, customer_id, employee_id, order_date, require_date, shipped_date, ship_via, freight, ship_name, ship_address, ship_city, ship_region, ship_postal_code, ship_country) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)'
+    `SELECT * FROM orders WHERE order_id = ${req.params.id}`
+  )
+  console.log(result.rows)
+  res.json(result.rows)
+})
+
+router.put('/:id', async (req, res) => {
+  let {
+    order_id,
+    customer_id,
+    employee_id,
+    order_date,
+    require_date,
+    shipped_date,
+    ship_via,
+    freight,
+    ship_name,
+    ship_address,
+    ship_city,
+    ship_region,
+    ship_postal_code,
+    ship_country
+  } = req.body
+  let result = await db.query(
+    `UPDATE orders SET order_id = ${order_id},
+    customer_id = '${customer_id}',
+    employee_id = ${employee_id},
+    order_date = '${order_date}',
+    require_date = '${require_date}',
+    shipped_date = '${shipped_date}',
+    ship_via = ${ship_via},
+    freight = ${freight},
+    ship_name = '${ship_name}',
+    ship_address = '${ship_address}',
+    ship_city = '${ship_city}',
+    ship_region = '${ship_region}',
+    ship_postal_code = ${ship_postal_code},
+    ship_country = '${ship_country}'
+    WHERE order_id = ${req.params.id}
+    `
   )
   console.log(result.rows)
   res.json(result.rows)
@@ -73,7 +117,7 @@ router.put('/', async (req, res) => {
 
 router.delete('/', async (req, res) => {
   let result = await db.query(
-    'DELETE INTO pedidos(order_id, customer_id, employee_id, order_date, require_date, shipped_date, ship_via, freight, ship_name, ship_address, ship_city, ship_region, ship_postal_code, ship_country) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)'
+    'DELETE INTO orders(order_id, customer_id, employee_id, order_date, require_date, shipped_date, ship_via, freight, ship_name, ship_address, ship_city, ship_region, ship_postal_code, ship_country) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)'
   )
   console.log(result.rows)
   res.json(result.rows)

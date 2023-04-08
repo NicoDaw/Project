@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>AdminLTE 3 | Simple Tables</title>
+    <title>Ordes Page</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link
@@ -122,45 +122,78 @@
                     </div>
                   </div>
                   <!-- /.card-header -->
-                  <div id="popUpFormAddOrder" style="display: none">
-                    <form id="formOrder">
-                      <input type="text" hidden name="order_id" />
-                      <p>customer_id</p>
-                      <select name="customer_id" id="customer_id"></select>
-                      <p>employee_id</p>
-                      <select name="employee_id" id="employee_id"></select>
-                      <p>order_date</p>
-                      <input type="date" name="order_date" />
-                      <p>require_date</p>
-                      <input type="date" name="require_date" />
-                      <p>shipped_date</p>
-                      <input type="date" name="shipped_date" />
-                      <p>ship_via</p>
-                      <select name="ship_via" id="ship_via"></select>
-                      <p>freight</p>
-                      <input type="number" name="freight" />
-                      <p>ship_name</p>
-                      <input type="text" name="ship_name" />
-                      <p>ship_address</p>
-                      <input type="text" name="ship_address" />
-                      <p>ship_city</p>
-                      <input type="text" name="ship_city" />
-                      <p>ship_region</p>
-                      <input type="text" name="ship_region" />
-                      <p>ship_postal_code</p>
-                      <input type="number" name="ship_postal_code" />
-                      <p>ship_country</p>
-                      <input type="text" name="ship_country" />
-                      <button type="submit">Enviar</button>
-                    </form>
+                  <!-- <div id="popUpFormAddOrder" style="display: none"> -->
+                  <div id="modal" class="modal">
+                    <div class="modal-content">
+                      <span class="close">&times;</span>
+                      <h2>Modal</h2>
+                      <form id="formOrder">
+                        <input
+                          type="text"
+                          hidden
+                          class="data"
+                          name="order_id"
+                        />
+                        <p>customer_id</p>
+                        <select
+                          name="customer_id"
+                          class="data"
+                          id="customer_id"
+                        ></select>
+                        <p>employee_id</p>
+                        <select
+                          name="employee_id"
+                          class="data"
+                          id="employee_id"
+                        ></select>
+                        <p>order_date</p>
+                        <input type="date" class="data" name="order_date" />
+                        <p>require_date</p>
+                        <input type="date" class="data" name="require_date" />
+                        <p>shipped_date</p>
+                        <input type="date" class="data" name="shipped_date" />
+                        <p>ship_via</p>
+                        <select
+                          name="ship_via"
+                          class="data"
+                          id="ship_via"
+                        ></select>
+                        <p>freight</p>
+                        <input type="number" class="data" name="freight" />
+                        <p>ship_name</p>
+                        <input type="text" class="data" name="ship_name" />
+                        <p>ship_address</p>
+                        <input type="text" class="data" name="ship_address" />
+                        <p>ship_city</p>
+                        <input type="text" class="data" name="ship_city" />
+                        <p>ship_region</p>
+                        <input type="text" class="data" name="ship_region" />
+                        <p>ship_postal_code</p>
+                        <input
+                          type="number"
+                          class="data"
+                          name="ship_postal_code"
+                        />
+                        <p>ship_country</p>
+                        <input type="text" class="data" name="ship_country" />
+                        <button id="updateButton" hidden type="submit">
+                          Update
+                        </button>
+                        <button id="submitButton" hidden type="submit">
+                          Enviar
+                        </button>
+                      </form>
+                    </div>
                   </div>
+                  <!-- </div> -->
 
                   <div
                     class="card-body table-responsive p-0"
-                    style="height: 300px"
+                    style="height: fit-content"
                   >
                     <table
-                      class="table table-head-fixed table-hover text-nowrap"
+                      id="tableData"
+                      class="table table-head-fixed table-hover"
                     >
                       <thead>
                         <tr>
@@ -206,9 +239,7 @@
     <script src="./plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- AdminLTE App -->
     <script src="./dist/js/adminlte.min.js"></script>
-    <!-- AdminLTE for demo purposes -->
-    <script src="./dist/js/demo.js"></script>
     <!-- cargar datos table -->
-    <script defer src="./js/raul.js"></script>
+    <script src="./js/raul.js"></script>
   </body>
 </html>
