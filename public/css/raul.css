@@ -1,0 +1,38 @@
+#formOrder {
+  padding-left: 10px;
+}
+/* Estilos para el modal */
+.modal {
+  display: none; /* ocultar el modal por defecto */
+  position: fixed; /* posición fija en la pantalla */
+  z-index: 1; /* colocar el modal encima de todo lo demás */
+  left: 0;
+  top: 0;
+  width: 100%; /* ancho completo */
+  height: 100%; /* altura completa */
+  overflow: auto; /* permitir scroll si el contenido del modal es muy largo */
+  background-color: rgba(0,0,0,0.4); /* fondo oscuro semi-transparente */
+}
+/* Estilos para el contenido del modal */
+.modal-content {
+  background-color: white;
+  margin: 10% auto; /* centrar el contenido del modal */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%; /* ancho del contenido del modal */
+  max-width: 600px; /* ancho máximo del contenido del modal */
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
