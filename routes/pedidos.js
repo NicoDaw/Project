@@ -91,26 +91,30 @@ router.put('/:id', async (req, res) => {
     ship_postal_code,
     ship_country
   } = req.body
-  let result = await db.query(
-    `UPDATE orders SET order_id = ${order_id},
-    customer_id = '${customer_id}',
-    employee_id = ${employee_id},
-    order_date = '${order_date}',
-    require_date = '${require_date}',
-    shipped_date = '${shipped_date}',
-    ship_via = ${ship_via},
-    freight = ${freight},
-    ship_name = '${ship_name}',
-    ship_address = '${ship_address}',
-    ship_city = '${ship_city}',
-    ship_region = '${ship_region}',
-    ship_postal_code = ${ship_postal_code},
-    ship_country = '${ship_country}'
-    WHERE order_id = ${order_id}
-    `
-  )
-  console.log(result.rows)
-  res.json(result.rows)
+  try {
+    let result = await db.query(
+      `UPDATE orders SET
+      customer_id = '${customer_id}',
+      employee_id = ${employee_id},
+      order_date = '${order_date}',
+      required_date = '${require_date}',
+      shipped_date = '${shipped_date}',
+      ship_via = ${ship_via},
+      freight = ${freight},
+      ship_name = '${ship_name}',
+      ship_address = '${ship_address}',
+      ship_city = '${ship_city}',
+      ship_region = '${ship_region}',
+      ship_postal_code = ${ship_postal_code},
+      ship_country = '${ship_country}'
+      WHERE order_id = ${order_id}
+      `
+    )
+    console.log(result.rows)
+    res.json(result.rows)
+  } catch (error) {
+    console.log(error);
+  }
 })
 
 router.delete('/:id', async (req, res) => {

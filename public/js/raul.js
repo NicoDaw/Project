@@ -53,6 +53,7 @@ const formatDate = date => {
 }
 
 const loadTableData = () => {
+  table.innerHTML = ''
   fetch('/pedidos', { method: 'GET' })
     .then(response => response.json())
     .then(data => {
@@ -91,6 +92,7 @@ const loadFormData = id => {
   fetch(`/pedidos/${id}`, { method: 'GET' })
     .then(response => response.json())
     .then(data => {
+      console.log(data)
       dataInputForm[0].value = data[0].order_id
       dataInputForm[1].value = data[0].customer_id
       dataInputForm[2].value = data[0].employee_id
@@ -148,7 +150,7 @@ const updateOrder = async () => {
 
   const order_id = formData.order_id
   console.log('DATOS raul.js', JSON.stringify(formData))
-  await fetch(`/pedidos/${order_id}`, {
+  fetch(`/pedidos/${order_id}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json'
@@ -157,14 +159,11 @@ const updateOrder = async () => {
   })
     .then(response => response.json())
     .then(data => {
-      console.log(data)
       console.log('Pedido actualizado correctamente')
       modal.style.display = 'none'
       return data
     })
-    .catch(console.error('Ha ocurrido un error al actualizar el pedido'))
 }
-
 
 const editOrder = order_id => {
   loadFormData(order_id)
@@ -174,24 +173,23 @@ const editOrder = order_id => {
   modal.style.display = 'block'
 }
 const deleteOrder = order_id => {
-  fetch(`/pedidos/${order_id}`, { method: 'DELETE' })
-    .then(() => {
-      console.log('Pedido eliminado correctamente')
-      loadTableData()
-    })
+  fetch(`/pedidos/${order_id}`, { method: 'DELETE' }).then(() => {
+    console.log('Pedido eliminado correctamente')
+    loadTableData()
+  })
 }
 
 sendForm.addEventListener('click', event => {
   event.preventDefault()
   addOrder()
+  modal.style.display = 'none'
 })
 
 UpdateForm.addEventListener('click', e => {
   e.preventDefault()
   updateOrder()
+  loadTableData()
 })
-
-
 
 // Cerrar el modal
 span.addEventListener('click', e => {
