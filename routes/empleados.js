@@ -19,8 +19,7 @@ router.post('/', async (req, res) => {
         console.log(req.body);
         let data = req.body;
         let result = await db.query(`INSERT INTO employees (employee_id, last_name, first_name, title, title_of_courtesy, birth_date, hire_date, address, city, region, postal_code, country, home_phone, extension, notes, reports_to, photo, photo_path) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18)`, [data.id, data.apellido, data.nombre, data.titulo, data.cortesia, data.nacimiento, data.alta, data.direccion, data.ciudad, data.region, data.cp, data.pais, data.telefono, data.extension, data.notas, data.reporta, null, data.foto]);
-
-        res.send(res)
+        res.send(result)
     } catch (err) {
         console.log(err);
         res.status(500).json({ error: 'Internal server error' });
@@ -47,10 +46,10 @@ router.put('/:id', async (req, res) => {
 router.delete('/:id', async (req, res) => {
     try {
         let result = await db.query('DELETE FROM employees WHERE employee_id = $1', [req.params.id])
-        res.send(res)
+        res.send(result)
     } catch (err) {
         console.log(err);
-        res.send(res);
+        res.send(err);
     }
 
 })

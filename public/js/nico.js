@@ -8,10 +8,9 @@ window.onload = function () {
             .then(data => {
                 const table = document.getElementById('tableContent');
                 console.log(data);
-
                 data.forEach(employee => {
-                    const fila = `<a id="row${employee.employee_id}"><tr><td>${employee.employee_id}</td><td>${employee.first_name}</td><td>${employee.last_name}</td><td>  ${parseDate(employee.birth_date)}</td><td>${employee.country}</td><td>${employee.region != null ? employee.region : ""}</td> <td>${employee.city}</td> <td>${employee.extension}</td> <td>${employee.title}</td><td>${parseDate(employee.hire_date)}</td>  <td><a href="#" onclick="editarEmpleado(${employee.employee_id})"><i class="fas fa-edit"></i></a>
-                    <a href="" onclick="eliminarEmpleado(${employee.employee_id})"><i class="fas fa-trash-alt"></i></a></td> </tr></a>
+                    const fila = `<a id="row${employee.employee_id}"><tr><td>${employee.employee_id}</td><td>${employee.first_name}</td><td>${employee.last_name}</td><td>  ${parseDate(employee.birth_date)}</td><td>${employee.country}</td><td>${employee.region != null ? employee.region : ""}</td> <td>${employee.city}</td> <td>${employee.extension}</td> <td>${employee.title}</td><td>${parseDate(employee.hire_date)}</td>  <td><a href="#" onclick="editarEmpleado(${employee.employee_id})"><i class="fas fa-edit buttonClass"></i></a>
+                    <span onclick="eliminarEmpleado(${employee.employee_id})"><i class="fas fa-trash-alt buttonClass" style="color: blue"></i></span></td> </tr></a>
                     `
                     const updateForm = `<div id="update-employee-form-${employee.employee_id}" class='updateForm-${employee.employee_id} updateForm' style='display: none; width: 800px; background-color: #ECECEC' ">
                     <a href="#" onclick="editarEmpleado(${employee.employee_id}, 'close')" >
@@ -167,30 +166,40 @@ function selectPerID(param) {
     return document.getElementById(param).value;
 }
 
-function eliminarEmpleado(idEmpleado) {
+async function eliminarEmpleado(idEmpleado) {
     console.log("idEmpleadoDelete", idEmpleado);
     if (confirm("Are you sure you want to delete this employee?")) {
-        fetch(`/empleados/${idEmpleado}`, {
+        let response = await fetch(`/empleados/${idEmpleado}`, {
             method: 'DELETE'
         })
-            .then(response => {
-                if (response.ok) {
-                    return response.json();
-                } else {
-                    throw new Error('Something went wrong');
-                }
-            })
-            .then(data => {
-                console.log(data);
-                alert("Employee deleted successfully");
-                window.location.reload();
-            })
-            .catch(error => {
-                console.error(error);
-                alert("Error deleting employee");
-                window.location.reload();
-            });
+        let data = response;
+        console.log(data);
+        if (data.ok) {
+            alert("User deleted successfully")
+            location.reload();
+        } else {
+            alert("There were a problem deleting the user")
+        }
     }
+
+    //     let a = await fetch(`/empleados/${idEmpleado}`, {
+    //         method: 'DELETE'
+    //     })
+    //     console.log(a);
+    //     // .then(response => {
+    //     //     response.json()
+    //     //         .then(data => {
+    //     //             console.log(data);
+    //     //             alert("Employee deleted successfully");
+    //     //             // window.location.reload();
+    //     //         })
+    //     // })
+    //     // .catch(error => {
+    //     //     console.error(error);
+    //     //     alert("Error deleting employee");
+    //     //     // window.location.reload();
+    //     // });
+    // }
 }
 
 function editarEmpleado(idUpdate, status) {

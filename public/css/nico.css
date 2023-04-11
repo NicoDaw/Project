@@ -15,3 +15,12 @@ input {
     margin-left: 150px;
     padding-bottom: 25px;
 }
+
+.buttonClass {
+    color: rgb(105, 105, 247);
+}
+
+.buttonClass:hover {
+    cursor: pointer;
+    color: rgb(86, 86, 144);
+}
