@@ -1,92 +1,15 @@
 const table = document.getElementById('dataContent')
-// buttons
 const buttonAddOrder = document.getElementById('addOrder')
 const sendForm = document.getElementById('submitButton')
 const UpdateForm = document.getElementById('updateButton')
 const tableData = document.getElementById('tableData')
-// const popUpFormulario = document.getElementById('popUpFormAddOrder')
-// const popUpFormulario = document.getElementById('')
-const formOrder = document.getElementById('formOrder')
-const editOrderForm = document.querySelectorAll('.editOrder')
-// const inputForm = popUpFormulario.querySelectorAll('input')
 const selectCostumers = document.getElementById('customer_id')
 const selectEmployees = document.getElementById('employee_id')
 const selectShippers = document.getElementById('ship_via')
-
 const dataInputForm = document.querySelectorAll('.data')
-
-// Obtener el modal
 const modal = document.getElementById('modal')
-
-// Obtener el botón para abrir el modal
-const btn = document.getElementById('openModal')
-
-// Obtener el botón para cerrar el modal
 const span = document.getElementsByClassName('close')[0]
 
-const formatDate = date => {
-  let dateFormated = new Date(date)
-  dateFormated = dateFormated.toISOString().substring(0, 10)
-  return dateFormated
-}
-
-const loadTableData = () => {
-  fetch('/pedidos', { method: 'GET' })
-    .then(response => response.json())
-    .then(data => {
-      data.forEach((rowOrder, id) => {
-        table.innerHTML += `<tr>
-            <td>${id}</td>
-            <td>${rowOrder.order_id}</td>
-            <td>${rowOrder.customer_id}</td>
-            <td>${rowOrder.employee_id}</td>
-            <td>${formatDate(rowOrder.order_date)}</td>
-            <td>${formatDate(rowOrder.required_date)}</td>
-            <td>${formatDate(rowOrder.shipped_date)}</td>
-            <td>${rowOrder.ship_via}</td>
-            <td>${rowOrder.freight}</td>
-            <td>${rowOrder.ship_name}</td>
-            <td>${rowOrder.ship_address}</td>
-            <td>${rowOrder.ship_city}</td>
-            <td>${rowOrder.ship_region}</td>
-            <td>${rowOrder.ship_postal_code}</td>
-            <td>${rowOrder.ship_country}</td>
-            <td>
-            <i id="openModal" onclick="editOrder(${
-              rowOrder.order_id
-            })" class="fas fa-edit editOrder"></i>
-            <i id="removeOrder" onclick="removeOrder(${
-              rowOrder.order_id
-            })" class="fas fa-trash-alt"></i>
-            </td>
-        </tr>`
-      })
-    })
-  return table
-}
-
-const loadFormData = id => {
-  fetch(`/pedidos/${id}`, { method: 'GET' })
-    .then(response => response.json())
-    .then(data => {
-      // let order = dataFormat(data, id)
-      console.log('data', data)
-      dataInputForm[0].value = data[0].order_id
-      dataInputForm[1].value = data[0].customer_id
-      dataInputForm[2].value = data[0].employee_id
-      dataInputForm[3].value = formatDate(data[0].order_date)
-      dataInputForm[4].value = formatDate(data[0].required_date)
-      dataInputForm[5].value = formatDate(data[0].shipped_date)
-      dataInputForm[6].value = data[0].ship_via
-      dataInputForm[7].value = data[0].freight
-      dataInputForm[8].value = data[0].ship_name
-      dataInputForm[9].value = data[0].ship_address
-      dataInputForm[10].value = data[0].ship_city
-      dataInputForm[11].value = data[0].ship_region
-      dataInputForm[12].value = data[0].ship_postal_code
-      dataInputForm[13].value = data[0].ship_country
-    })
-}
 window.onload = () => {
   loadTableData()
   fetch('/customers', { method: 'GET' })
@@ -120,6 +43,68 @@ window.onload = () => {
         option.innerHTML = `(${shipper.shipper_id}) ${shipper.company_name}`
         selectShippers.appendChild(option)
       })
+    })
+}
+
+const formatDate = date => {
+  let dateFormated = new Date(date)
+  dateFormated = dateFormated.toISOString().substring(0, 10)
+  return dateFormated
+}
+
+const loadTableData = () => {
+  fetch('/pedidos', { method: 'GET' })
+    .then(response => response.json())
+    .then(data => {
+      data.forEach((rowOrder, id) => {
+        table.innerHTML += `<tr>
+            <td>${id}</td>
+            <td>${rowOrder.order_id}</td>
+            <td>${rowOrder.customer_id}</td>
+            <td>${rowOrder.employee_id}</td>
+            <td>${formatDate(rowOrder.order_date)}</td>
+            <td>${formatDate(rowOrder.required_date)}</td>
+            <td>${formatDate(rowOrder.shipped_date)}</td>
+            <td>${rowOrder.ship_via}</td>
+            <td>${rowOrder.freight}</td>
+            <td>${rowOrder.ship_name}</td>
+            <td>${rowOrder.ship_address}</td>
+            <td>${rowOrder.ship_city}</td>
+            <td>${rowOrder.ship_region}</td>
+            <td>${rowOrder.ship_postal_code}</td>
+            <td>${rowOrder.ship_country}</td>
+            <td>
+            <i id="openModal" onclick="editOrder(${
+              rowOrder.order_id
+            })" class="fas fa-edit editOrder"></i>
+            <i id="deleteOrder" onclick="deleteOrder(${
+              rowOrder.order_id
+            })" class="fas fa-trash-alt"></i>
+            </td>
+        </tr>`
+      })
+    })
+  return table
+}
+
+const loadFormData = id => {
+  fetch(`/pedidos/${id}`, { method: 'GET' })
+    .then(response => response.json())
+    .then(data => {
+      dataInputForm[0].value = data[0].order_id
+      dataInputForm[1].value = data[0].customer_id
+      dataInputForm[2].value = data[0].employee_id
+      dataInputForm[3].value = formatDate(data[0].order_date)
+      dataInputForm[4].value = formatDate(data[0].required_date)
+      dataInputForm[5].value = formatDate(data[0].shipped_date)
+      dataInputForm[6].value = data[0].ship_via
+      dataInputForm[7].value = data[0].freight
+      dataInputForm[8].value = data[0].ship_name
+      dataInputForm[9].value = data[0].ship_address
+      dataInputForm[10].value = data[0].ship_city
+      dataInputForm[11].value = data[0].ship_region
+      dataInputForm[12].value = data[0].ship_postal_code
+      dataInputForm[13].value = data[0].ship_country
     })
 }
 
@@ -163,20 +148,23 @@ const updateOrder = async () => {
 
   const order_id = formData.order_id
   console.log('DATOS raul.js', JSON.stringify(formData))
-  try {
-    await fetch(`/pedidos/${order_id}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(formData)
+  await fetch(`/pedidos/${order_id}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(formData)
+  })
+    .then(response => response.json())
+    .then(data => {
+      console.log(data)
+      console.log('Pedido actualizado correctamente')
+      modal.style.display = 'none'
+      return data
     })
-    console.log('Pedido actualizado correctamente')
-    modal.style.display = 'none'
-  } catch (error) {
-    console.log('error', error)
-  }
+    .catch(console.error('Ha ocurrido un error al actualizar el pedido'))
 }
+
 
 const editOrder = order_id => {
   loadFormData(order_id)
@@ -185,7 +173,13 @@ const editOrder = order_id => {
   tableData.classList.toggle('table-head-fixed')
   modal.style.display = 'block'
 }
-const removeOrder = () => {}
+const deleteOrder = order_id => {
+  fetch(`/pedidos/${order_id}`, { method: 'DELETE' })
+    .then(() => {
+      console.log('Pedido eliminado correctamente')
+      loadTableData()
+    })
+}
 
 sendForm.addEventListener('click', event => {
   event.preventDefault()
@@ -196,6 +190,9 @@ UpdateForm.addEventListener('click', e => {
   e.preventDefault()
   updateOrder()
 })
+
+
+
 // Cerrar el modal
 span.addEventListener('click', e => {
   modal.style.display = 'none'

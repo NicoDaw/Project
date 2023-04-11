@@ -3,9 +3,10 @@ const router = express.Router()
 const db = require('../connection')
 
 router.get('/', async (req, res) => {
-  // let result = await db.query('SELECT * from orders LIMIT 10')
   let result = await db.query(
-    'SELECT * FROM orders ORDER BY "order_id" desc LIMIT 10'
+    // 'SELECT * FROM orders ORDER BY "order_id" desc LIMIT 10'
+    'SELECT * FROM orders ORDER BY "order_id" asc LIMIT 10'
+
   )
   res.json(result.rows)
 })
@@ -16,7 +17,6 @@ const idAutoIncremental = async () => {
   let lastIdOrder = result.rows[0].order_id
   let id = lastIdOrder + 1
   return id
-  // res.json(result.rows)
 }
 
 router.post('/', async (req, res) => {
@@ -66,9 +66,7 @@ router.post('/', async (req, res) => {
   }
 })
 
-// selecionar un pedido en especifico
 router.get('/:id', async (req, res) => {
-  // console.log('id',req.params.id);
   let result = await db.query(
     `SELECT * FROM orders WHERE order_id = ${req.params.id}`
   )
@@ -108,16 +106,16 @@ router.put('/:id', async (req, res) => {
     ship_region = '${ship_region}',
     ship_postal_code = ${ship_postal_code},
     ship_country = '${ship_country}'
-    WHERE order_id = ${req.params.id}
+    WHERE order_id = ${order_id}
     `
   )
   console.log(result.rows)
   res.json(result.rows)
 })
 
-router.delete('/', async (req, res) => {
+router.delete('/:id', async (req, res) => {
   let result = await db.query(
-    'DELETE INTO orders(order_id, customer_id, employee_id, order_date, require_date, shipped_date, ship_via, freight, ship_name, ship_address, ship_city, ship_region, ship_postal_code, ship_country) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)'
+    `DELETE FROM orders WHERE order_id = ${req.params.id}`
   )
   console.log(result.rows)
   res.json(result.rows)
