@@ -12,10 +12,9 @@ const pool = new Pool({
 });
 
 const db = {
-    query: (str) => {
+    query: (str, arrayOpt) => {
         pool.connect()
-        console.log('llega');
-        return pool.query(str)
+        return pool.query(str, arrayOpt)
     },
     execute: async (str) => {
         pool.connect()
